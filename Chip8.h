@@ -11,6 +11,12 @@ struct Chip8{
 	int pc;
 	bool screen[64][32];
 
+	int cpuFrequency = 800; //hz 
+	float cpuPeriod = 1/800; //1/800 seconds
+
+	bool quitOnLoop = false;
+	bool noHz = false;
+
 	int font[80] = {
 		0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
 		0x20, 0x60, 0x20, 0x20, 0x70, // 1

@@ -7,25 +7,23 @@ GLFWwindow* window;
 void drawScreen(Chip8& chip8) {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    for (int x = 0; x < 64; x++) {
-        for (int y = 0; y < 32; y++) {
+    //for loop that looks through the chip8's screen and checks whether a pixel is set, if the pixel is set then we draw
+    for (int x = 0; x < 64; x++) {//rows
+        glBegin(GL_QUADS); //let gl know we are drawing some quadrilaterals
 
-            if (chip8.screen[x][y] != 0){
-                glBegin(GL_QUADS);
-                float px = x * 10.0f;
-                float py = y * 10.0f;
-
-                glVertex2f(px, py);
-                glVertex2f(px + 10, py);
-                glVertex2f(px + 10, py + 10);
-                glVertex2f(px, py + 10);
-                glEnd();
+        for (int y = 0; y < 32; y++) {//columns
+            if (chip8.screen[x][y]){ //if pixel is set we draw
+                glVertex2f(x*10, y*10); //make the square
+                glVertex2f(x*10+10, y*10);
+                glVertex2f(x*10+10, y*10+10);
+                glVertex2f(x*10, y*10+10);
             }
         }
+        glEnd(); //make gl end our drawing
     }
 
-    glfwSwapBuffers(window);
-    glfwPollEvents();
+    glfwSwapBuffers(window); //swap out our buffers on the window
+    glfwPollEvents(); //now let the events take place
 }
 
 int initWindow() {
